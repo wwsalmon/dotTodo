@@ -1,4 +1,5 @@
 import { ipcRenderer, contextBridge } from "electron";
+import { Item } from "../utils/types";
 
 declare global {
     interface Window {
@@ -15,9 +16,6 @@ const api = {
      *
      * The function below can accessed using `window.Main.sayHello`
      */
-    sendMessage: (message: string) => {
-        ipcRenderer.send("message", message);
-    },
     /**
      Here function for AppBar
      */
@@ -29,6 +27,18 @@ const api = {
     },
     Close: () => {
         ipcRenderer.send("close");
+    },
+    Open: () => {
+        ipcRenderer.send("open");
+    },
+    Save: (items: Item[]) => {
+        ipcRenderer.send("save", items);
+    },
+    SaveAs: (items: Item[]) => {
+        ipcRenderer.send("saveAs", items);
+    },
+    New: () => {
+        ipcRenderer.send("new");
     },
     /**
      * Provide an easier way to listen to events
