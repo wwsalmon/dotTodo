@@ -1,14 +1,25 @@
-import React from "react";
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+
+const AppBarButton = (props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => (
+    <button {...props} className={`${props.className || ""} hover:bg-gray-100 h-full w-10`}/>
+);
+
+const AppBar = ({title}: {title: string}) => (
+    <div className="w-full flex items-center h-10 draggable text-sm">
+        <span className="ml-4">{title}</span>
+        <div className="ml-auto flex items-center undraggable h-full">
+            <AppBarButton onClick={window.Main.Minimize}>&#8211;</AppBarButton>
+            <AppBarButton onClick={window.Main.Close}>&#10005;</AppBarButton>
+        </div>
+    </div>
+
+);
 
 function App() {
     return (
-        <div className="flex flex-col h-screen">
-            <div className="flex-auto">
-                <div className=" flex flex-col justify-center items-center h-full bg-gray-800 space-y-4">
-                    <h1 className="text-2xl text-gray-200">Vite + React + Typescript + Electron + Tailwind</h1>
-                </div>
-            </div>
-        </div>
+        <>
+            <AppBar title="dotTodo"/>
+        </>
     );
 }
 
